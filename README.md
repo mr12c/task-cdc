@@ -3,6 +3,8 @@
 A simple and clean web application for managing your contacts. This project was built to demonstrate a modern React frontend interacting with a backend API, featuring functionalities like viewing, favoriting, and adding contacts.
 
 ---
+<img width="710" height="1002" alt="image" src="https://github.com/user-attachments/assets/23c7bea3-4931-42bb-8e9b-a2e49faf018d" />
+
 
 ## Live Demo 🚀
 
