@@ -28,7 +28,7 @@ function ContactRender() {
   // Sync fetched contacts to local state when they load
   
   const [newContact, setNewContact] = useState({
-    name: "",
+    full_name: "",
     email: "",
     phone: "",
     role: "",
@@ -37,22 +37,23 @@ function ContactRender() {
   });
 
   const handleAddContact = () => {
-    if (!newContact.name || !newContact.email) return;
-
+    if (!newContact.full_name || !newContact.email) return;
+  // show this new data in the top of contact list only
     setData((prev) => ({
       ...prev,
       data: [
-        ...prev.data,
         {
           id: { $oid: Date.now().toString() },
           ...newContact,
         },
+        ...prev.data
+        
       ],
     }));
-
+    
     // Reset form fields and close modal
     setNewContact({
-      name: "",
+      full_name: "",
       email: "",
       phone: "",
       role: "",
@@ -124,7 +125,7 @@ function ContactRender() {
         {error && <div>
           <img src={error} alt="" />
             </div>}
-          {contacts && contacts?.data?.map((contact) => (
+          {!loading && !error && contacts && contacts?.data?.map((contact) => (
           <Contact key={contact?.id.$oid} contact={contact} />
         ))}
       </div>
@@ -147,9 +148,9 @@ function ContactRender() {
                 type="text"
                 placeholder="Full Name"
                 className="border rounded-lg p-2 outline-none"
-                value={newContact.name}
+                value={newContact.full_name}
                 onChange={(e) =>
-                  setNewContact({ ...newContact, name: e.target.value })
+                  setNewContact({ ...newContact, full_name: e.target.value })
                 }
               />
               <input
