@@ -49,10 +49,9 @@ function ContactRender() {
   }, [active, debouncedQuery]);
 
 
-  const endpoint = active === 0 ? "/contacts" : "/contacts/favourites";
 
-  const { data: contacts, loading, error ,setData} = useContacts(endpoint);
-  
+  const { data: contacts, loading, error ,setData} = useContacts(apiEndpoint);
+
 
 
   
