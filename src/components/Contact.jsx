@@ -3,6 +3,8 @@ import { UserIcon } from 'lucide-react'
 import { MailIcon } from 'lucide-react'
 import { PhoneCall } from 'lucide-react'
 
+
+
 function Contact({ contact }) {
   return (
     <div className='flex hover:bg-gray-100  items-center justify-between gap-4 rounded-xl p-3 w-full '>

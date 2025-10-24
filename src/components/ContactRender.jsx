@@ -2,16 +2,24 @@ import { Plus, X } from "lucide-react";
 import React, { useState } from "react";
 import Contact from "./Contact";
 import { SearchIcon } from "lucide-react";
+// import p to p4 from public folder
+import p1 from "../../public/p1.png";
+import p2 from "../../public/p2.png";  
+import p3 from "../../public/p3.png";
+import p4 from "../../public/p4.png";
+
+
 
 function ContactRender() {
   const [active, setActive] = useState(0);
   const [showModal, setShowModal] = useState(false);
+//   up
   const [contacts, setContacts] = useState([
     {
       id: 1,
       name: "John Doe",
       email: "john@example.com",
-      avatar: "/public/p2.png",
+      avatar: p1,
       phone: "123-456-7890",
       role: "Software Engineer",
       status: "online",
@@ -20,7 +28,7 @@ function ContactRender() {
       id: 2,
       name: "Jane Smith",
       email: "jane@example.com",
-      avatar: "/public/p1.png",
+      avatar: p2,
       phone: "123-456-7890",
       role: "Product Manager",
       status: "offline",
@@ -29,7 +37,7 @@ function ContactRender() {
       id: 3,
       name: "Alice Johnson",
       email: "alice@example.com",
-      avatar: "/public/p3.png",
+      avatar: p3,
       phone: "123-456-7890",
       role: "UX Designer",
       status: "online",
@@ -38,7 +46,7 @@ function ContactRender() {
       id: 4,
       name: "Alice Johnson",
       email: "alice@example.com",
-      avatar: "/public/p2.png",
+      avatar: p2,
       phone: "123-456-7890",
       role: "UX Designer",
       status: "online",
@@ -47,7 +55,7 @@ function ContactRender() {
       id: 5,
       name: "Alice Johnson",
       email: "alice@example.com",
-      avatar: "/public/p4.png",
+      avatar: p4,
       phone: "123-456-7890",
       role: "UX Designer",
       status: "online",
@@ -56,7 +64,7 @@ function ContactRender() {
       id: 6,
       name: "Alice Johnson",
       email: "alice@example.com",
-      avatar: "/public/p1.png",
+      avatar: p1,
       phone: "123-456-7890",
       role: "UX Designer",
       status: "online",
