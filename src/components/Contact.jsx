@@ -14,11 +14,11 @@ function Contact({ contact }) {
                 
                 <div className="relative inline-block">
   <div className="w-18 h-18 border-[#43a1e0] border rounded-full bg-white overflow-hidden">
-    <img src={contact.avatar} alt={contact.name} className="object-cover w-full h-full" />
+    <img src={contact.avatar} alt={contact.full_name} className="object-cover w-full h-full" />
   </div>
 
   {/* Online dot outside */}
-  {contact.status === 'online' && (
+  {contact.status === true && (
     <span className="absolute bottom-1 right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-white"></span>
   )}
 </div>
@@ -27,7 +27,7 @@ function Contact({ contact }) {
 
          
             <div className='flex items-start my-auto flex-col'>
-             <h1>{contact.name}</h1>
+             <h1>{contact.full_name} <span></span></h1>
              <p className='font-medium text-[0.9rem]'>{contact.role}</p>
               <div className='flex gap-1 text-[0.8rem] items-center'><span className='font-[0.8rem]      '><MailIcon className='w-4 text-gray-400' /></span>{contact.email}</div>
             </div>

@@ -8,69 +8,20 @@ import p2 from "../../public/p2.png";
 import p3 from "../../public/p3.png";
 import p4 from "../../public/p4.png";
 
+import useContacts from "@/api";
 
 
 function ContactRender() {
   const [active, setActive] = useState(0);
   const [showModal, setShowModal] = useState(false);
-//   up
-  const [contacts, setContacts] = useState([
-    {
-      id: 1,
-      name: "John Doe",
-      email: "john@example.com",
-      avatar: p1,
-      phone: "123-456-7890",
-      role: "Software Engineer",
-      status: "online",
-    },
-    {
-      id: 2,
-      name: "Jane Smith",
-      email: "jane@example.com",
-      avatar: p2,
-      phone: "123-456-7890",
-      role: "Product Manager",
-      status: "offline",
-    },
-    {
-      id: 3,
-      name: "Alice Johnson",
-      email: "alice@example.com",
-      avatar: p3,
-      phone: "123-456-7890",
-      role: "UX Designer",
-      status: "online",
-    },
-    {
-      id: 4,
-      name: "Alice Johnson",
-      email: "alice@example.com",
-      avatar: p2,
-      phone: "123-456-7890",
-      role: "UX Designer",
-      status: "online",
-    },
-    {
-      id: 5,
-      name: "Alice Johnson",
-      email: "alice@example.com",
-      avatar: p4,
-      phone: "123-456-7890",
-      role: "UX Designer",
-      status: "online",
-    },
-    {
-      id: 6,
-      name: "Alice Johnson",
-      email: "alice@example.com",
-      avatar: p1,
-      phone: "123-456-7890",
-      role: "UX Designer",
-      status: "online",
-    },
-  ]);
 
+  const endpoint = active === 0 ? "/contacts" : "/contacts/favourites";
+
+  
+  const { data: contacts, loading, error } = useContacts(endpoint);
+  console.log(contacts);
+
+  
   const [newContact, setNewContact] = useState({
     name: "",
     email: "",
@@ -99,7 +50,7 @@ function ContactRender() {
 
   return (
     <div className="w-[98%] mx-auto md:w-[750px] rounded-3xl font-[myfont]">
-      {/* Header */}
+      
       <div
         className="flex justify-between items-center flex-row p-5 rounded-2xl"
         style={{ boxShadow: "rgba(0, 0, 0, 0.1) -4px 9px 25px -6px" }}
@@ -114,7 +65,7 @@ function ContactRender() {
         </div>
       </div>
 
-      {/* Search Bar */}
+      
       <div className="relative w-full mt-4">
         <div className="absolute top-1/2 left-4 -translate-y-1/2 text-gray-400">
           <SearchIcon className="w-5 h-5" />
@@ -129,7 +80,7 @@ function ContactRender() {
         />
       </div>
 
-      {/* Tabs */}
+     
       <div className="flex gap-3 ml-3 text-black mt-2">
         <span
           onClick={() => setActive(0)}
@@ -149,19 +100,21 @@ function ContactRender() {
         </span>
       </div>
 
-      {/* Contact List */}
+      
       <div
         className="custom-scroll w-full mt-4 rounded-3xl p-2 flex flex-col gap-2 h-[75vh] overflow-y-scroll"
         style={{
           boxShadow: "rgba(0, 0, 0, 0.1) -4px 9px 25px -6px",
         }}
       >
-        {contacts.map((contact) => (
-          <Contact key={contact.id} contact={contact} />
+        {loading && <p>Loading contacts...</p>}
+        {error && <p>Error loading contacts: {error.message}</p>}
+        {contacts && contacts?.data?.map((contact) => (
+          <Contact key={contact?.id.$oid} contact={contact} />
         ))}
       </div>
 
-      {/* Add Contact Modal */}
+     
       {showModal && (
         <div className="fixed inset-0 bg-black/40 flex justify-center items-center z-50">
           <div className="bg-white w-[90%] md:w-[400px] rounded-2xl p-6 relative shadow-lg">
@@ -232,7 +185,7 @@ function ContactRender() {
         </div>
       )}
 
-      {/* Scrollbar styling */}
+      
       <style jsx>{`
         .custom-scroll::-webkit-scrollbar {
           width: 8px;
