@@ -2,11 +2,15 @@ import { Plus, X } from "lucide-react";
 import React, { useState } from "react";
 import Contact from "./Contact";
 import { SearchIcon } from "lucide-react";
+import { useEffect } from "react";
 // import p to p4 from public folder
+import Loader from "./Loader";
+
 import p1 from "../../public/p1.png";
 import p2 from "../../public/p2.png";  
 import p3 from "../../public/p3.png";
 import p4 from "../../public/p4.png";
+import server from "../../public/server-error.png";
 
 import useContacts from "@/api";
 
@@ -18,9 +22,10 @@ function ContactRender() {
   const endpoint = active === 0 ? "/contacts" : "/contacts/favourites";
 
   
-  const { data: contacts, loading, error } = useContacts(endpoint);
-  console.log(contacts);
+ const { data: contacts, loading, error ,setData} = useContacts(endpoint);
+  
 
+  // Sync fetched contacts to local state when they load
   
   const [newContact, setNewContact] = useState({
     name: "",
@@ -33,11 +38,19 @@ function ContactRender() {
 
   const handleAddContact = () => {
     if (!newContact.name || !newContact.email) return;
-    setContacts((prev) => [
+
+    setData((prev) => ({
       ...prev,
-      { ...newContact, id: prev.length + 1 },
-    ]);
-    setShowModal(false);
+      data: [
+        ...prev.data,
+        {
+          id: { $oid: Date.now().toString() },
+          ...newContact,
+        },
+      ],
+    }));
+
+    // Reset form fields and close modal
     setNewContact({
       name: "",
       email: "",
@@ -107,9 +120,11 @@ function ContactRender() {
           boxShadow: "rgba(0, 0, 0, 0.1) -4px 9px 25px -6px",
         }}
       >
-        {loading && <p>Loading contacts...</p>}
-        {error && <p>Error loading contacts: {error.message}</p>}
-        {contacts && contacts?.data?.map((contact) => (
+        {loading && <Loader />}
+        {error && <div>
+          <img src={error} alt="" />
+            </div>}
+          {contacts && contacts?.data?.map((contact) => (
           <Contact key={contact?.id.$oid} contact={contact} />
         ))}
       </div>

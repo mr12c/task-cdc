@@ -30,7 +30,7 @@ function useContacts(endpoint) {
 
     fetchData();
   }, [endpoint]); 
-  return { data, loading, error };
+  return { data, loading, error,setData };
 }
 
 export default useContacts;
