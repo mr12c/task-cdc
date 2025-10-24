@@ -18,14 +18,43 @@ import useContacts from "@/api";
 function ContactRender() {
   const [active, setActive] = useState(0);
   const [showModal, setShowModal] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [debouncedQuery, setDebouncedQuery] = useState("");
+  const [apiEndpoint, setApiEndpoint] = useState("/contacts");
+
+ 
+  useEffect(() => {
+  
+    const timerId = setTimeout(() => {
+      setDebouncedQuery(searchQuery);
+    }, 500);
+
+     
+    return () => {
+      clearTimeout(timerId);
+    };
+  }, [searchQuery]); 
+
+   
+  useEffect(() => {
+    let endpoint = "";
+    if (debouncedQuery) {
+      
+      endpoint = `/contacts/search?name=${debouncedQuery}`;
+    } else {
+     
+      endpoint = active === 0 ? "/contacts" : "/contacts/favourites";
+    }
+    setApiEndpoint(endpoint);
+  }, [active, debouncedQuery]);
+
 
   const endpoint = active === 0 ? "/contacts" : "/contacts/favourites";
 
-  
- const { data: contacts, loading, error ,setData} = useContacts(endpoint);
+  const { data: contacts, loading, error ,setData} = useContacts(endpoint);
   
 
-  // Sync fetched contacts to local state when they load
+
   
   const [newContact, setNewContact] = useState({
     full_name: "",
@@ -86,7 +115,9 @@ function ContactRender() {
         </div>
         <input
           type="text"
-          placeholder={active === 0 ? "Search All" : "Search Favourites"}
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          placeholder="Search contacts by name..."
           className="w-full rounded-full pl-12 pr-4 py-4 outline-none"
           style={{
             boxShadow: "rgba(0, 0, 0, 0.1) -4px 9px 25px -6px",
