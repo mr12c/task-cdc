@@ -127,7 +127,9 @@ function ContactRender() {
      
       <div className="flex gap-3 ml-3 text-black mt-2">
         <span
-          onClick={() => setActive(0)}
+          onClick={() => {setActive(0);
+            setSearchQuery("");
+          }}
           className={`font-medium cursor-pointer ${
             active === 0 ? "text-[#3381c9] border-b-[#3381c9]" : ""
           }`}
@@ -135,7 +137,9 @@ function ContactRender() {
           All
         </span>
         <span
-          onClick={() => setActive(1)}
+          onClick={() => {setActive(1);
+            setSearchQuery("");
+          }}
           className={`font-medium cursor-pointer ${
             active === 1 ? "text-[#3381c9] border-b-[#3381c9]" : ""
           }`}
