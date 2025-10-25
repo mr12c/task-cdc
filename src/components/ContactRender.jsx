@@ -160,14 +160,18 @@ function ContactRender() {
           <Loader />
          
         </div>}
-        {error && <div>
-          <img src={error} alt="" />
-            </div>}
-          {(contacts?.size() && 
-          <img src={empty} alt="No contacts found" />) || 
-          !loading && !error && contacts && contacts?.data?.map((contact) => (
-          <Contact key={contact?.id.$oid} contact={contact} />
-        ))}
+
+        {(!loading && !error && contacts?.data?.length === 0 && (
+  <img src={empty} alt="No contacts found" />
+)) ||
+(!loading && !error && contacts?.data?.length > 0 && (
+  contacts.data.map((contact) => (
+    <Contact key={contact?.id?.$oid || contact?.id} contact={contact} />
+  ))
+))}
+
+         
+
       </div>
 
      
