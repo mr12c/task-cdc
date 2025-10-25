@@ -150,12 +150,15 @@ function ContactRender() {
 
       
       <div
-        className="custom-scroll w-full mt-4 rounded-3xl p-2 flex flex-col gap-2 h-[75vh] overflow-y-scroll"
+        className="custom-scroll  w-full mt-4 rounded-3xl p-2 flex flex-col gap-2 h-[75vh] overflow-y-scroll"
         style={{
           boxShadow: "rgba(0, 0, 0, 0.1) -4px 9px 25px -6px",
         }}
       >
-        {loading && <Loader />}
+        {loading && <div className="w-full h-full flex justify-center items-center"> 
+          <Loader />
+         
+        </div>}
         {error && <div>
           <img src={error} alt="" />
             </div>}
