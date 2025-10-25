@@ -11,6 +11,7 @@ import p2 from "../../public/p2.png";
 import p3 from "../../public/p3.png";
 import p4 from "../../public/p4.png";
 import server from "../../public/server-error.png";
+import empty from "../../public/empty-folder.png";
 
 import useContacts from "@/api";
 
@@ -162,7 +163,9 @@ function ContactRender() {
         {error && <div>
           <img src={error} alt="" />
             </div>}
-          {!loading && !error && contacts && contacts?.data?.map((contact) => (
+          {(contacts?.size() && 
+          <img src={empty} alt="No contacts found" />) || 
+          !loading && !error && contacts && contacts?.data?.map((contact) => (
           <Contact key={contact?.id.$oid} contact={contact} />
         ))}
       </div>
